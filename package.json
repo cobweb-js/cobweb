@@ -1,0 +1,21 @@
+{
+  "name": "cobweb",
+  "version": "0.0.1",
+  "description": "Web auditing and analysis framework",
+  "keywords": [
+    "web",
+    "analysis",
+    "framework",
+    "middleware",
+    "spider",
+    "crawler"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbalcomb/cobweb"
+  },
+  "engines": {
+    "node": ">= 0.11.x"
+  }
+}
