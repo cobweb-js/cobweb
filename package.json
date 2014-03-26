@@ -1,7 +1,8 @@
 {
   "name": "cobweb",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web auditing and analysis framework",
+  "repository": "dbalcomb/cobweb",
   "keywords": [
     "web",
     "analysis",
@@ -11,10 +12,7 @@
     "crawler"
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dbalcomb/cobweb"
-  },
+  "main": "lib/application.js",
   "engines": {
     "node": ">= 0.11.x"
   }
