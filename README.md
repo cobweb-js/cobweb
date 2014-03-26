@@ -3,9 +3,7 @@
 cobweb
 ======
 
-Cobweb is a node.js web auditing and analysis framework inspired by [Koa](https://github.com/koajs/koa). It makes use of ES6 generators via [co](https://github.com/visionmedia/co) to handle control flow. The core codebase only contains minimal functionality to handle the queuing of URIs. Common functionality such as scraping web pages and querying data is left to middleware libraries. It is up to the user to decide which middleware is relevant to the application.
-
-Cobweb does not come with any pre-bundled middleware. If you prefer to only define a single dependency for common middleware you may use [cobweb-common](https://github.com/dbalcomb/cobweb-common).
+Cobweb is a node.js web auditing and analysis framework inspired by [Koa](https://github.com/koajs/koa). It makes use of ES6 generators via [co](https://github.com/visionmedia/co) to handle control flow. The core codebase only contains minimal functionality to handle the queuing of URIs. Common functionality such as scraping web pages and querying data is left to middleware libraries. It is up to the user to decide which middleware is relevant to the application. If you prefer to only define a single dependency for common middleware you may use [cobweb-common](https://github.com/dbalcomb/cobweb-common).
 
 ## Installation
 
