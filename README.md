@@ -1,4 +1,4 @@
-<img src="https://dl.dropboxusercontent.com/s/1e2t69ol6x55cef/cobweb-logo.png" alt="cobweb logo" width="40px" />
+<img src="https://dl.dropboxusercontent.com/s/1e2t69ol6x55cef/cobweb-logo.png" alt="cobweb logo" width="64px" />
 
 cobweb
 ======
