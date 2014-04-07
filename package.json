@@ -1,6 +1,6 @@
 {
   "name": "cobweb",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Web auditing and analysis framework",
   "repository": "dbalcomb/cobweb",
   "keywords": [
@@ -12,8 +12,12 @@
     "crawler"
   ],
   "license": "MIT",
-  "main": "lib/application.js",
   "engines": {
     "node": ">= 0.11.x"
+  },
+  "dependencies": {
+    "cobweb-compose": ">= 0.0.3",
+    "co": "~3.0.5",
+    "merge-descriptors": ">= 0.0.2"
   }
 }
