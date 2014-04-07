@@ -1,5 +1,4 @@
 var Emitter = require('events').EventEmitter;
-var merge   = require('merge-descriptors');
 var compose = require('cobweb-compose');
 var co      = require('co');
 
@@ -9,11 +8,6 @@ var Cobweb = module.exports = function Cobweb () {
   var self = this instanceof Cobweb ? this : Object.create(Cobweb.prototype);
   self.initialize.apply(self, arguments);
   return self;
-}
-
-Cobweb.utils = {
-  merge  : merge,
-  compose: compose
 }
 
 // Cobweb Prototype

@@ -1,6 +1,6 @@
 {
   "name": "cobweb",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Web auditing and analysis framework",
   "repository": "dbalcomb/cobweb",
   "keywords": [
@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "cobweb-compose": ">= 0.0.3",
-    "co": "~3.0.5",
-    "merge-descriptors": ">= 0.0.2"
+    "co": "~3.0.5"
   }
 }
