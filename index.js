@@ -49,7 +49,8 @@ cobweb.process = function (input, callback) {
 
 cobweb.createContext = function (input) {
   var ctx = Object.create(this.context);
-  ctx.input = input;
+  ctx.input  = input;
+  ctx.parent = this;
   return ctx;
 }
 
@@ -59,4 +60,11 @@ var context = cobweb.context = {};
 
 context.throw = function (err) {
   throw err instanceof Error ? err : new Error(err);
+}
+
+context.process = function (input) {
+  var parent = this.parent;
+  return function (done) {
+    parent.process(input, done);
+  }
 }
