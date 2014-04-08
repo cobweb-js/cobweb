@@ -5,7 +5,7 @@ var co      = require('co');
 // Cobweb Class
 
 var Cobweb = module.exports = function Cobweb () {
-  var self = this instanceof Cobweb ? this : Object.create(Cobweb.prototype);
+  var self = this instanceof Cobweb ? this : Object.create(cobweb);
   self.initialize.apply(self, arguments);
   return self;
 }
@@ -37,14 +37,14 @@ cobweb.include = function (middleware) {
 
 cobweb.process = function (input, callback) {
   if (!Array.isArray(input)) input = [input];
-  co(function* () {
+  co(function* (self) {
     yield input.map(function (item) {
-      var mwf = co(compose(this.middleware));
-      var ctx = this.createContext(item);
+      var mwf = co(compose(self.middleware));
+      var ctx = self.createContext(item);
       return mwf.bind(ctx);
-    }, this);
-    if (callback) callback();
-  }).call(this);
+    });
+    if (callback) callback.call(self);
+  })(this);
 }
 
 cobweb.createContext = function (input) {
