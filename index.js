@@ -18,7 +18,7 @@ cobweb.initialize = function (middleware) {
   this.middleware = [];
   if (!middleware) return this;
   if (Array.isArray(middleware)) {
-    middleware.forEach(this.include);
+    middleware.forEach(this.include, this);
   } else this.include(middleware);
 }
 
