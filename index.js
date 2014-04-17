@@ -23,11 +23,7 @@ cobweb.initialize = function (middleware) {
 }
 
 cobweb.compose = function () {
-  var mwf = co(compose(this.middleware));
-  return function* (next) {
-    yield mwf.bind(this.context);
-    yield next;
-  }
+  return compose(this.middleware);
 }
 
 cobweb.include = function (middleware) {
@@ -38,13 +34,15 @@ cobweb.include = function (middleware) {
 cobweb.process = function (input, callback) {
   if (!Array.isArray(input)) input = [input];
   co(function* (self) {
-    yield input.map(function (item) {
-      var mwf = co(compose(self.middleware));
-      var ctx = self.createContext(item);
-      return mwf.bind(ctx);
+    var contexts = input.map(function (item) {
+      return self.createContext(item);
     });
-    if (callback) callback.call(self);
+    yield contexts.map(function (ctx) {
+      return co(compose(self.middleware)).bind(ctx);
+    });
+    if (callback) callback.call(self, contexts);
   })(this);
+  return this;
 }
 
 cobweb.createContext = function (input) {
