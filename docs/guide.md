@@ -214,3 +214,103 @@ The client code is much simpler than the server. Firstly it is set up to connect
 The middleware being used are request, cheerio and extract. Request sends a HTTP request to the server with a limit of 5 concurrent connections. This request then returns the page body which is picked up by cheerio which provides a jQuery-like API.
 
 Extract uses the cheerio API in order to get information from the page. In this case it gets the page title, images, links, description and all of the dublin-core metdata that it has defined.
+
+## Multiple clients
+
+### Server
+
+```js
+var store1 = nedb('site.db');
+var store2 = nedb('links.db');
+
+var app = report({
+  'from': '30daysAgo',
+  'to'  : 'today',
+  'data': ['visits', 'pageviews']
+});
+
+app.use([
+  cache(),
+  server({ 'port': 3000 }),
+  accept('[http|https]://[www.]website.com/{?query}{#fragment}', [
+    server.delegate('client1'),
+    store1,
+    spider()
+  ]),
+  accept('[http|https]://subdomain.website.com/{?query}{#fragment}', [
+    server.delegate('client2'),
+    store1,
+    spider()
+  ]),
+  accept('{*}', [
+    server.delegate('client3'),
+    store2
+  ])
+]);
+
+app.on('drain', function () {
+  store.export('csv', 'output.csv', ['uri', 'status', 'referrer', 'redirect', 'visits', 'pageviews' ]);
+});
+
+app.connect({
+  'profile' : '00000000',
+  'username': 'joe.bloggs@email.tld',
+  'password': 'iAmJoEbLoGgS'
+});
+```
+
+### Client 1
+
+```js
+var app = client({
+  'channel': 'client1',
+  'host'   : 'localhost',
+  'port'   : 3000
+});
+
+app.use([
+  request({ 'max': 3 }, [
+    cheerio(),
+    extract([
+      'title',
+      'description',
+      'links'
+    ])
+  ])
+]);
+```
+
+### Client 2
+
+```js
+var app = client({
+  'channel': 'client2',
+  'host'   : 'localhost',
+  'port'   : 3000
+});
+
+app.use([
+  request({ 'max': 3 }, [
+    cheerio(),
+    extract([
+      'title',
+      'description',
+      'links'
+    ])
+  ])
+]);
+```
+
+### Client 3
+
+```js
+var app = client({
+  'channel': 'client1',
+  'host'   : 'localhost',
+  'port'   : 3000
+});
+
+app.use([
+  request({ 'max': 3, 'method': 'HEAD' })
+]);
+```
